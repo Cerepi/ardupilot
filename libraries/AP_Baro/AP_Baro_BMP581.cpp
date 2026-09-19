@@ -109,6 +109,15 @@ bool AP_Baro_BMP581::init()
         return false;
     }
 
+    // the checks below test INT_STATUS.por, which the datasheet sets on
+    // power-up or soft reset and clears on the first read. The sensor keeps
+    // its power across a warm MCU reboot, so a previous boot has already
+    // cleared por and init() would only succeed after a physical power cycle.
+    // Soft reset the chip (datasheet 4.3.10: write 0xB6 to CMD, ready after
+    // tsoft_res = 2ms) to return it to its power-on state.
+    _dev->write_register(BMP581_REG_CMD, 0xB6);
+    hal.scheduler->delay(5);
+
     uint8_t status;
     if (!_dev->read_registers(BMP581_REG_STATUS, &status, 1)) {
         return false;
