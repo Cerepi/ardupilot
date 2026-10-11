@@ -444,6 +444,7 @@ BUILD_OPTIONS = [
     Feature('Other', 'MASS_STORAGE', 'AP_REBOOT_MASS_STORAGE_ENABLED', 'Enable reboot to USB mass storage', 0, None),
     Feature('Other', 'BOOTLOADER_FLASHING', 'AP_BOOTLOADER_FLASHING_ENABLED', 'Enable Bootloader flashing', 0, "FILESYSTEM_ROMFS"),  # noqa
     Feature('Other', 'SERIALDEVICE_REGISTER', 'AP_SERIALMANAGER_REGISTER_ENABLED', 'Enable Serial device registration', 0, None), # noqa
+    Feature('Other', 'JETSONPOWER', 'AP_JETSONPOWER_ENABLED', 'Enable Jetson module power sequencing', 0, None), # noqa
 
     Feature('Scripting', 'SCRIPTING', 'AP_SCRIPTING_ENABLED', 'Enable Lua Scripting', 0, None),
     Feature('Scripting', 'SCRIPTING_SERIALDEVICE', 'AP_SCRIPTING_SERIALDEVICE_ENABLED', 'Enable Lua serial device simulation', 0, "SCRIPTING,SERIALDEVICE_REGISTER"), # noqa
