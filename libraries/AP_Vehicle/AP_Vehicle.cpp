@@ -260,6 +260,12 @@ const AP_Param::GroupInfo AP_Vehicle::var_info[] = {
     // @Group: STAT
     // @Path: ../AP_Stats/AP_Stats.cpp
     AP_SUBGROUPINFO(stats, "STAT", 27, AP_Vehicle, AP_Stats),
+
+#if AP_JETSONPOWER_ENABLED
+    // @Group: JTSN
+    // @Path: ../AP_JetsonPower/AP_JetsonPower.cpp
+    AP_SUBGROUPINFO(jetson_power, "JTSN", 34, AP_Vehicle, AP_JetsonPower),
+#endif
 #endif
 
 #if AP_SCRIPTING_ENABLED
@@ -412,6 +418,10 @@ void AP_Vehicle::setup()
 #if AP_STATS_ENABLED
     // initialise stats module
     stats.init();
+#endif
+
+#if AP_JETSONPOWER_ENABLED
+    jetson_power.init();
 #endif
 
     BoardConfig.init();
@@ -709,6 +719,9 @@ const AP_Scheduler::Task AP_Vehicle::scheduler_tasks[] = {
 #endif
 #if AP_STATS_ENABLED
     SCHED_TASK_CLASS(AP_Stats,             &vehicle.stats,            update,           1, 100, 252),
+#if AP_JETSONPOWER_ENABLED
+    SCHED_TASK_CLASS(AP_JetsonPower,       &vehicle.jetson_power,     update,          10, 100, 253),
+#endif
 #endif
 #if AP_ARMING_ENABLED
     SCHED_TASK(update_arming,          1,     50, 253),
