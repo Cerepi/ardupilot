@@ -164,12 +164,16 @@ PB2 HW_VER_REV_DRIVE OUTPUT LOW
 
 # on-board Jetson. The control lines drive inverting buffers, so a high
 # output holds the module powered down and in reset, which is the state it is
-# left in: the module needs POWER_EN and SYS_RESET released in sequence with
-# a delay between them, so it is not brought up by simply driving the pins.
+# left in. AP_JetsonPower releases POWER_EN and then SYS_RESET, with the
+# delay between them that the module requires.
 # SHUTDOWN_REQ is an output of the module and is only read.
 PD11 JETSON_EN           OUTPUT HIGH GPIO(72)
 PD10 JETSON_RST          OUTPUT HIGH GPIO(71)
 PD9  JETSON_SHUTDOWN_REQ INPUT GPIO(70)
+define AP_JETSONPOWER_ENABLED 1
+define AP_JETSONPOWER_EN_PIN_DEFAULT 72
+define AP_JETSONPOWER_RST_PIN_DEFAULT 71
+define AP_JETSONPOWER_SHDN_PIN_DEFAULT 70
 
 # SPI device table
 SPIDEV bmi088_a SPI3 DEVID1 BMI088_A_CS MODE3 10*MHZ 10*MHZ
